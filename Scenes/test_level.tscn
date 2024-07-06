@@ -459,6 +459,9 @@ sources/0 = SubResource("TileSetAtlasSource_f277q")
 
 [node name="Character" parent="." instance=ExtResource("1_ooxki")]
 
+[node name="Camera2D" type="Camera2D" parent="Character"]
+position_smoothing_speed = 10.0
+
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_a515q")
 format = 2
