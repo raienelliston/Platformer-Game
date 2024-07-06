@@ -12,6 +12,8 @@ script = ExtResource("1_7kjkw")
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="."]
 script = ExtResource("2_ioi3o")
+speed = null
+gravity = null
 
 [node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
 
