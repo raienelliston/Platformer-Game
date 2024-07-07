@@ -1,9 +1,12 @@
 extends Area2D
 
 @export var target_color: CharacterStats.CharacterColors
+@export var stats : CharacterStats
 	
 func _on_body_entered(body):
 	if body.is_in_group("character"):
 		print("character touched me")
 		var character = body
-		character.set_character_stats(target_color)
+		if character:
+			character.set_color(target_color)
+
