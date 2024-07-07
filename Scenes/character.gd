@@ -3,7 +3,7 @@ extends CharacterBody2D
 @export var speed = 400
 @export var gravity = 20
 @export var jump_power = -3000
-@export var stats : CharacterStats : set = set_character_stats
+@export var stats : CharacterStats
 
 @onready var color_sprite: Sprite2D = $Sprite2D
 @onready var texture_rect: TextureRect = $Sprite2D/TextureRect
@@ -13,13 +13,13 @@ enum CharacterColors {Red, Blue, White, Black}
 var current_color: CharacterColors
 
 func _ready() -> void:
-	color_sprite.modulate = Color("red")
+	add_to_group("character")
+	update_color(stats.get_color())
 
 func set_character_stats(value: CharacterStats) -> void:
-	stats = value.create_instance()
 	
-	if not stats.color_changed.is_connected(set_color):
-		stats.color_changed.connect(set_color)
+	if not stats.color_changed.is_connected(update_color):
+		stats.color_changed.connect(update_color)
 
 func _physics_process(delta):
 	velocity.x = 0
@@ -37,7 +37,7 @@ func _physics_process(delta):
 	move_and_slide()
 	move_and_collide(Vector2(0, gravity))
 
-func set_color(color: CharacterColors):
+func update_color(color: CharacterColors):
 	current_color = color
 	match current_color:
 		CharacterColors.Red:
@@ -50,3 +50,6 @@ func set_color(color: CharacterColors):
 			color_sprite.modulate = Color("black")
 		_:
 			push_error("Tried to set color to a color not declared")
+
+func _on_color_changed():
+	update_color(stats.get_color())
