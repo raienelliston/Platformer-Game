@@ -1,9 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://cr7tx1vnoej87"]
+[gd_scene load_steps=10 format=3 uid="uid://cr7tx1vnoej87"]
 
 [ext_resource type="PackedScene" uid="uid://cl0uo84vs4opo" path="res://Scenes/character.tscn" id="1_ooxki"]
 [ext_resource type="Texture2D" uid="uid://c8tolpjhsnqj6" path="res://Assets/Terrain (16x16).png" id="2_ydp08"]
 [ext_resource type="PackedScene" uid="uid://c402snmxw5w1j" path="res://Scenes/color_change_detector.tscn" id="3_rp36q"]
 [ext_resource type="PackedScene" uid="uid://c67nr10bvwbgp" path="res://Scenes/red_detector.tscn" id="4_53ybq"]
+[ext_resource type="PackedScene" uid="uid://bnbsnm5gvms6y" path="res://Scenes/red_receiver.tscn" id="5_4r3as"]
+[ext_resource type="Script" path="res://Scenes/TestParent.gd" id="5_8sl28"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_f277q"]
 texture = ExtResource("2_ydp08")
@@ -485,3 +487,10 @@ shape = SubResource("RectangleShape2D_4i2ri")
 
 [node name="Area2D" parent="." instance=ExtResource("4_53ybq")]
 position = Vector2(5, 423)
+detector_id = 1
+
+[node name="TestParent" type="Node" parent="."]
+script = ExtResource("5_8sl28")
+
+[node name="RedReceiver" parent="TestParent" instance=ExtResource("5_4r3as")]
+reciever_id = 1

@@ -1,5 +1,7 @@
 extends Area2D
 
+signal detected_signal
+
 @export var target_color: CharacterStats.CharacterColors
 @export var detector_id: int
 @export var stats : CharacterStats
@@ -12,9 +14,10 @@ func _ready() -> void:
 func _on_body_entered(body):
 	if body.is_in_group("character"):
 		var character = body
-		if character.red_emitting == true:
+		if character.red_emitting == true && triggered == false:
 			print("triggered")
 			triggered = true
+			detected_signal.emit()
 
 
 

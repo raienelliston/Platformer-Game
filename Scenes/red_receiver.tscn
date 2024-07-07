@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bnbsnm5gvms6y"]
+
+[ext_resource type="Script" path="res://Scenes/red_receiver.gd" id="1_q8c7p"]
+
+[node name="RedReceiver" type="Node2D"]
+script = ExtResource("1_q8c7p")
