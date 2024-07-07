@@ -3,6 +3,7 @@ extends CharacterBody2D
 @export var speed = 400
 @export var gravity = 20
 @export var jump_power = -3000
+@export var stats : CharacterStats : set = set_character_stats
 
 @onready var color_sprite: Sprite2D = $Sprite2D
 @onready var texture_rect: TextureRect = $Sprite2D/TextureRect
@@ -13,6 +14,12 @@ var current_color: CharacterColors
 
 func _ready() -> void:
 	color_sprite.modulate = Color("red")
+
+func set_character_stats(value: CharacterStats) -> void:
+	stats = value.create_instance()
+	
+	if not stats.color_changed.is_connected(set_color):
+		stats.color_changed.connect(set_color)
 
 func _physics_process(delta):
 	velocity.x = 0
