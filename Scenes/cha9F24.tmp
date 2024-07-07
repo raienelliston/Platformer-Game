@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://cl0uo84vs4opo"]
+
+[ext_resource type="Script" path="res://Scenes/character.gd" id="1_7kjkw"]
+[ext_resource type="Texture2D" uid="uid://dci6ylj1s4sdx" path="res://Assets/greyBox.png" id="1_ea3s1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rkybw"]
+size = Vector2(64, 64)
+
+[node name="character" type="CharacterBody2D"]
+script = ExtResource("1_7kjkw")
+speed = null
+gravity = null
+jump_power = null
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(32, 32)
+shape = SubResource("RectangleShape2D_rkybw")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="TextureRect" type="TextureRect" parent="Sprite2D"]
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("1_ea3s1")

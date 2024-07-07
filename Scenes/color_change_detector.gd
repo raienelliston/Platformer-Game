@@ -6,4 +6,4 @@ func _on_body_entered(body):
 	if body.is_in_group("character"):
 		print("character touched me")
 		var character = body
-		character.character_stats.character_color(target_color)
+		character.set_character_stats(target_color)

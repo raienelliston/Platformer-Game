@@ -7,14 +7,10 @@ extends CharacterBody2D
 
 @onready var color_sprite: Sprite2D = $Sprite2D
 @onready var texture_rect: TextureRect = $Sprite2D/TextureRect
-
-enum CharacterColors {Red, Blue, White, Black}
-
-var current_color: CharacterColors
+var current_color: CharacterStats.CharacterColors
 
 func _ready() -> void:
 	add_to_group("character")
-	update_color(stats.get_color())
 
 func set_character_stats(value: CharacterStats) -> void:
 	
@@ -37,19 +33,19 @@ func _physics_process(delta):
 	move_and_slide()
 	move_and_collide(Vector2(0, gravity))
 
-func update_color(color: CharacterColors):
+func update_color(color: CharacterStats.CharacterColors) -> void:
 	current_color = color
 	match current_color:
-		CharacterColors.Red:
+		CharacterStats.CharacterColors.Red:
 			color_sprite.modulate = Color("red")
-		CharacterColors.Blue:
+		CharacterStats.CharacterColors.Blue:
 			color_sprite.modulate = Color("blue")
-		CharacterColors.White:
+		CharacterStats.CharacterColors.White:
 			color_sprite.modulate = Color("white")
-		CharacterColors.Black:
+		CharacterStats.CharacterColors.Black:
 			color_sprite.modulate = Color("black")
 		_:
 			push_error("Tried to set color to a color not declared")
 
-func _on_color_changed():
-	update_color(stats.get_color())
+func _on_color_changed() -> void:
+	update_color(stats.get_character_color())

@@ -470,3 +470,4 @@ layer_0/tile_data = PackedInt32Array(1835008, 393216, 0, 1835009, 393216, 0, 183
 
 [node name="ColorChangeDetector" parent="." instance=ExtResource("3_rp36q")]
 position = Vector2(960, 370)
+target_color = 1
