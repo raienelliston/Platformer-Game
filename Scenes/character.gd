@@ -34,29 +34,46 @@ func _physics_process(delta):
 
 func update_color() -> void:
 	
-	# Reset jump if it isn't green
-	if not character_color == CharacterColors.Green:
-		jump_power = -200
-	
 	match character_color:
 		CharacterColors.Red: # Become a power source (like redstone)
+			self.collision_mask = 1 | 2 | 3
+			jump_power = -2000
 			color_sprite.modulate = Color("red")
+			
 		CharacterColors.Blue: # Passthrough blue + blue related objects
+			self.collision_mask = 1 | 2
+			jump_power = -2000
 			color_sprite.modulate = Color("blue")
+			
 		CharacterColors.Purple:
+			self.collision_mask = 1 | 3
+			jump_power = -2000
 			color_sprite.modulate = Color("Purple") # Passthrough with purple + purple related (intentionally confuse with blue)
+			
 		CharacterColors.Yellow:
+			self.collision_mask = 1 | 2 | 3
+			jump_power = -2000
 			color_sprite.modulate = Color("yellow")
+			
 		CharacterColors.Green: # Increased jump value
+			self.collision_mask = 1 | 2 | 3
 			jump_power = -3000
 			color_sprite.modulate = Color("green")
+			
 		CharacterColors.White:
+			self.collision_mask = 1 | 2 | 3
+			jump_power = -2000
 			color_sprite.modulate = Color("white") # Light source for dark rooms
+			
 		CharacterColors.Black:
+			self.collision_mask = 1 | 2 | 3
+			jump_power = -2000
 			color_sprite.modulate = Color("black")
+			
 		_:
 			push_error("Tried to set color to a color not declared")
 
 func set_color(color: CharacterColors) -> void:
-	character_color = color
-	update_color()
+	if color != character_color:
+		character_color = color
+		update_color()

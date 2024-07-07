@@ -9,4 +9,3 @@ func _on_body_entered(body):
 		var character = body
 		if character:
 			character.set_color(target_color)
-

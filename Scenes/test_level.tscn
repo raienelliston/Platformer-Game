@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://cr7tx1vnoej87"]
+[gd_scene load_steps=7 format=3 uid="uid://cr7tx1vnoej87"]
 
 [ext_resource type="PackedScene" uid="uid://cl0uo84vs4opo" path="res://Scenes/character.tscn" id="1_ooxki"]
 [ext_resource type="Texture2D" uid="uid://c8tolpjhsnqj6" path="res://Assets/Terrain (16x16).png" id="2_ydp08"]
@@ -456,6 +456,9 @@ texture = ExtResource("2_ydp08")
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_f277q")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4i2ri"]
+size = Vector2(210, 131)
+
 [node name="Test_Level" type="Node2D"]
 
 [node name="Character" parent="." instance=ExtResource("1_ooxki")]
@@ -471,3 +474,10 @@ layer_0/tile_data = PackedInt32Array(1835008, 393216, 0, 1835009, 393216, 0, 183
 [node name="ColorChangeDetector" parent="." instance=ExtResource("3_rp36q")]
 position = Vector2(960, 370)
 target_color = 1
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(104, 386.5)
+shape = SubResource("RectangleShape2D_4i2ri")
