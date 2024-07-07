@@ -41,5 +41,6 @@ down={
 [layer_names]
 
 2d_physics/layer_1="General Collision Layer"
-2d_physics/layer_2="Blue Collision Layer"
-2d_physics/layer_3="Purple Collision Layer"
+2d_physics/layer_2="Non-Blue Collision Layer"
+2d_physics/layer_3="Non-Purple Collision Layer"
+2d_physics/layer_4="Layer 4"
