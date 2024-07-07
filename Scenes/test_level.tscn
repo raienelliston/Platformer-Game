@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cr7tx1vnoej87"]
+[gd_scene load_steps=11 format=3 uid="uid://cr7tx1vnoej87"]
 
 [ext_resource type="PackedScene" uid="uid://cl0uo84vs4opo" path="res://Scenes/character.tscn" id="1_ooxki"]
 [ext_resource type="Texture2D" uid="uid://c8tolpjhsnqj6" path="res://Assets/Terrain (16x16).png" id="2_ydp08"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://c67nr10bvwbgp" path="res://Scenes/red_detector.tscn" id="4_53ybq"]
 [ext_resource type="PackedScene" uid="uid://bnbsnm5gvms6y" path="res://Scenes/red_receiver.tscn" id="5_4r3as"]
 [ext_resource type="Script" path="res://Scenes/TestParent.gd" id="5_8sl28"]
+[ext_resource type="Texture2D" uid="uid://dci6ylj1s4sdx" path="res://Assets/greyBox.png" id="7_s3y83"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_f277q"]
 texture = ExtResource("2_ydp08")
@@ -465,7 +466,7 @@ size = Vector2(210, 131)
 [node name="Test_Level" type="Node2D"]
 
 [node name="Character" parent="." instance=ExtResource("1_ooxki")]
-starting_color = 5
+starting_color = 1
 
 [node name="Camera2D" type="Camera2D" parent="Character"]
 position_smoothing_speed = 10.0
@@ -477,7 +478,7 @@ layer_0/tile_data = PackedInt32Array(1835008, 393216, 0, 1835009, 393216, 0, 183
 
 [node name="ColorChangeDetector" parent="." instance=ExtResource("3_rp36q")]
 position = Vector2(960, 370)
-target_color = 2
+target_color = 5
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 collision_layer = 2
@@ -495,3 +496,7 @@ script = ExtResource("5_8sl28")
 
 [node name="RedReceiver" parent="TestParent" instance=ExtResource("5_4r3as")]
 reciever_id = 1
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(288, 411)
+texture = ExtResource("7_s3y83")

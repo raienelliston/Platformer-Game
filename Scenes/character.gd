@@ -46,48 +46,38 @@ func update_color() -> void:
 	
 	match character_color:
 		CharacterColors.Red: # Become a power source (like redstone)
-			point_light_2d.get_parent().remove_child(point_light_2d)
-			hidden_node.add_child(point_light_2d)
+			point_light_2d.show()
 			red_emitting = true
 			self.collision_mask = 1 | 2 | 3 
 			jump_power = -2000
 			color_sprite.modulate = Color("red")
 			
 		CharacterColors.Blue: # Passthrough blue + blue related objects
-			point_light_2d.get_parent().remove_child(point_light_2d)
-			hidden_node.add_child(point_light_2d)
 			red_emitting = false
 			self.collision_mask = 1 | 2
 			jump_power = -2000
 			color_sprite.modulate = Color("blue")
 			
 		CharacterColors.Purple: # Passthrough with purple + purple related (intentionally confuse with blue)
-			point_light_2d.get_parent().remove_child(point_light_2d)
-			hidden_node.add_child(point_light_2d)
 			red_emitting = false
 			self.collision_mask = 1 | 3
 			jump_power = -2000
 			color_sprite.modulate = Color("Purple")
 			
 		CharacterColors.Yellow:
-			point_light_2d.get_parent().remove_child(point_light_2d)
-			hidden_node.add_child(point_light_2d)
 			red_emitting = false
 			self.collision_mask = 1 | 2 | 3
 			jump_power = -2000
 			color_sprite.modulate = Color("yellow")
 			
 		CharacterColors.Green: # Increased jump value
-			point_light_2d.get_parent().remove_child(point_light_2d)
-			hidden_node.add_child(point_light_2d)
 			red_emitting = false
 			self.collision_mask = 1 | 2 | 3
 			jump_power = -3000
 			color_sprite.modulate = Color("green")
 			
 		CharacterColors.White: # Light source for dark rooms
-			point_light_2d.get_parent().remove_child(point_light_2d)
-			light_node.add_child(point_light_2d)
+			point_light_2d.show()
 			red_emitting = false
 			self.collision_mask = 1 | 2 | 3
 			jump_power = -2000
