@@ -465,6 +465,7 @@ size = Vector2(210, 131)
 [node name="Test_Level" type="Node2D"]
 
 [node name="Character" parent="." instance=ExtResource("1_ooxki")]
+starting_color = 5
 
 [node name="Camera2D" type="Camera2D" parent="Character"]
 position_smoothing_speed = 10.0
@@ -476,7 +477,7 @@ layer_0/tile_data = PackedInt32Array(1835008, 393216, 0, 1835009, 393216, 0, 183
 
 [node name="ColorChangeDetector" parent="." instance=ExtResource("3_rp36q")]
 position = Vector2(960, 370)
-target_color = 1
+target_color = 2
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 collision_layer = 2

@@ -1,3 +1,4 @@
+class_name Character
 extends CharacterBody2D
 
 @export var speed = 400
@@ -6,7 +7,10 @@ extends CharacterBody2D
 
 @onready var color_sprite: Sprite2D = $Sprite2D
 @onready var texture_rect: TextureRect = $Sprite2D/TextureRect
-@onready var self_light = $PointLight2D
+@onready var point_light_2d = $LightNode/PointLight2D
+@onready var light_node = $LightNode
+@onready var hidden_node = $HiddenNode
+
 
 enum CharacterColors { Red, Blue, Purple, Yellow, Green, White, Black, NONE }
 @export var starting_color: CharacterColors 
@@ -42,49 +46,56 @@ func update_color() -> void:
 	
 	match character_color:
 		CharacterColors.Red: # Become a power source (like redstone)
-			self_light.visable = false
+			point_light_2d.get_parent().remove_child(point_light_2d)
+			hidden_node.add_child(point_light_2d)
 			red_emitting = true
 			self.collision_mask = 1 | 2 | 3 
 			jump_power = -2000
 			color_sprite.modulate = Color("red")
 			
 		CharacterColors.Blue: # Passthrough blue + blue related objects
-			self_light.visable = false
+			point_light_2d.get_parent().remove_child(point_light_2d)
+			hidden_node.add_child(point_light_2d)
 			red_emitting = false
 			self.collision_mask = 1 | 2
 			jump_power = -2000
 			color_sprite.modulate = Color("blue")
 			
 		CharacterColors.Purple: # Passthrough with purple + purple related (intentionally confuse with blue)
-			self_light.visable = false
+			point_light_2d.get_parent().remove_child(point_light_2d)
+			hidden_node.add_child(point_light_2d)
 			red_emitting = false
 			self.collision_mask = 1 | 3
 			jump_power = -2000
 			color_sprite.modulate = Color("Purple")
 			
 		CharacterColors.Yellow:
-			self_light.visable = false
+			point_light_2d.get_parent().remove_child(point_light_2d)
+			hidden_node.add_child(point_light_2d)
 			red_emitting = false
 			self.collision_mask = 1 | 2 | 3
 			jump_power = -2000
 			color_sprite.modulate = Color("yellow")
 			
 		CharacterColors.Green: # Increased jump value
-			self_light.visable = false
+			point_light_2d.get_parent().remove_child(point_light_2d)
+			hidden_node.add_child(point_light_2d)
 			red_emitting = false
 			self.collision_mask = 1 | 2 | 3
 			jump_power = -3000
 			color_sprite.modulate = Color("green")
 			
 		CharacterColors.White: # Light source for dark rooms
-			self_light.visable = true
+			point_light_2d.get_parent().remove_child(point_light_2d)
+			light_node.add_child(point_light_2d)
 			red_emitting = false
 			self.collision_mask = 1 | 2 | 3
 			jump_power = -2000
 			color_sprite.modulate = Color("white")
 			
 		CharacterColors.Black:
-			self_light.visable = false
+			point_light_2d.get_parent().remove_child(point_light_2d)
+			hidden_node.add_child(point_light_2d)
 			red_emitting = false
 			self.collision_mask = 1 | 2 | 3
 			jump_power = -2000

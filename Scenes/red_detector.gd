@@ -2,9 +2,7 @@ extends Area2D
 
 signal detected_signal
 
-@export var target_color: CharacterStats.CharacterColors
 @export var detector_id: int
-@export var stats : CharacterStats
 	
 var triggered := false
 	
@@ -18,8 +16,6 @@ func _on_body_entered(body):
 			print("triggered")
 			triggered = true
 			detected_signal.emit()
-
-
 
 func _on_body_exited(body):
 	if body.is_in_group("character"):
