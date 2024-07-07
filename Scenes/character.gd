@@ -2,17 +2,19 @@ extends CharacterBody2D
 
 @export var speed = 400
 @export var gravity = 20
-@export var jump_power = -3000
+@export var defualt_jump_power = -2000
 
 @onready var color_sprite: Sprite2D = $Sprite2D
 @onready var texture_rect: TextureRect = $Sprite2D/TextureRect
 
-enum CharacterColors { Red, Blue, White, Black }
+enum CharacterColors { Red, Blue, Purple, Yellow, Green, White, Black }
 @export var starting_color: CharacterColors 
 var character_color: CharacterColors = starting_color
+var jump_power = defualt_jump_power
 
 func _ready() -> void:
 	add_to_group("character")
+	
 
 func _physics_process(delta):
 	velocity.x = 0
@@ -31,14 +33,26 @@ func _physics_process(delta):
 	move_and_collide(Vector2(0, gravity))
 
 func update_color() -> void:
+	
+	# Reset jump if it isn't green
+	if not character_color == CharacterColors.Green:
+		jump_power = -200
+	
 	match character_color:
-		CharacterStats.CharacterColors.Red:
+		CharacterColors.Red: # Become a power source (like redstone)
 			color_sprite.modulate = Color("red")
-		CharacterStats.CharacterColors.Blue:
+		CharacterColors.Blue: # Passthrough blue + blue related objects
 			color_sprite.modulate = Color("blue")
-		CharacterStats.CharacterColors.White:
-			color_sprite.modulate = Color("white")
-		CharacterStats.CharacterColors.Black:
+		CharacterColors.Purple:
+			color_sprite.modulate = Color("Purple") # Passthrough with purple + purple related (intentionally confuse with blue)
+		CharacterColors.Yellow:
+			color_sprite.modulate = Color("yellow")
+		CharacterColors.Green: # Increased jump value
+			jump_power = -3000
+			color_sprite.modulate = Color("green")
+		CharacterColors.White:
+			color_sprite.modulate = Color("white") # Light source for dark rooms
+		CharacterColors.Black:
 			color_sprite.modulate = Color("black")
 		_:
 			push_error("Tried to set color to a color not declared")
