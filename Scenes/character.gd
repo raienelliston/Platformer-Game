@@ -3,8 +3,9 @@ extends CharacterBody2D
 
 @export var speed = 400
 @export var gravity = 20
-@export var defualt_jump_power = -2000
-@export var bounce_power = 200
+@export var time_to_peak_jump : float
+@export var time_to_fall_jump : float
+@export var jump_height : float
 
 @onready var color_sprite: Sprite2D = $Sprite2D
 @onready var texture_rect: TextureRect = $Sprite2D/TextureRect
@@ -15,8 +16,13 @@ extends CharacterBody2D
 enum CharacterColors { Red, Orange, Yellow, Green, Blue, Purple, White, Black, NONE }
 @export var starting_color: CharacterColors 
 var character_color: CharacterColors = CharacterColors.NONE
-var jump_power = defualt_jump_power
 var bouncy = false
+
+# Jump Variables
+@onready var starting_jump_height = jump_height
+@onready var jump_velocity : float = ((-2.0 * jump_height) / time_to_peak_jump)
+@onready var jump_gravity : float = ((2.0 * jump_height) / (time_to_peak_jump * time_to_peak_jump))
+@onready var fall_gravity : float = ((2.0 * jump_height) / (time_to_fall_jump * time_to_fall_jump))
 
 # Color Asssistance Variables
 var red_emitting := false
@@ -28,36 +34,23 @@ func _ready() -> void:
 
 func _physics_process(delta):
 	if bouncy == false:
-		velocity.x = 0
 		
-		if Input.is_action_pressed("right"):
-			velocity.x += speed
-		if Input.is_action_pressed("left"):
-			velocity.x -= speed
+		velocity.y = jump_gravity if velocity.y < 0.0 else fall_gravity
+		
+		velocity.x = (Input.get_action_strength("right") - Input.get_action_strength("left")) * speed
 		
 		if not is_on_floor():
 			velocity.y += gravity
 		if Input.is_action_just_pressed("up") and is_on_floor() and gravity > 0:
-			velocity.y += jump_power
+			velocity.y = jump_velocity
 		elif Input.is_action_just_pressed("up") and is_on_ceiling() and gravity < 0:
-			velocity.y -= jump_power
+			velocity.y = jump_velocity
 			
 		move_and_slide()
-		move_and_collide(Vector2(0, gravity))
-	else:
-		if velocity.x < bounce_power:
-			velocity.x = bounce_power
-		velocity.y -= gravity
-		if is_on_floor():
-			velocity.y = bounce_power
-		if is_on_ceiling():
-			velocity.y = 0 - bounce_power
-		if is_on_wall():
-			velocity.x = 0 - velocity.x
-		
-		move_and_slide()
-		move_and_collide(Vector2(0, 0))
-
+	else: # in the case that yellow/bouncy is enabled
+		var collision = move_and_collide(velocity * delta)
+		if collision:
+			velocity = velocity.bounce(collision.get_normal())
 	
 
 func update_color() -> void:
@@ -69,7 +62,7 @@ func update_color() -> void:
 			light_node.visible = false
 			red_emitting = true
 			self.collision_mask = 1 | 2 | 3 
-			jump_power = -2000
+			jump_height = starting_jump_height
 			color_sprite.modulate = Color("red")
 			
 		CharacterColors.Orange: # Passthrough blue + blue related objects
@@ -78,7 +71,7 @@ func update_color() -> void:
 			light_node.visible = false
 			red_emitting = false
 			self.collision_mask = 1 | 2 | 3
-			jump_power = -2000
+			jump_height = starting_jump_height
 			color_sprite.modulate = Color("blue")
 			
 		CharacterColors.Yellow: # Bouncy. Gives character uncontrollable bouncy movment
@@ -87,7 +80,7 @@ func update_color() -> void:
 			light_node.visible = false
 			red_emitting = false
 			self.collision_mask = 1 | 2 | 3
-			jump_power = -2000
+			jump_height = starting_jump_height
 			color_sprite.modulate = Color("yellow")
 			
 		CharacterColors.Green: # Increased jump value
@@ -96,7 +89,7 @@ func update_color() -> void:
 			light_node.visible = false
 			red_emitting = false
 			self.collision_mask = 1 | 2 | 3
-			jump_power = -3000
+			jump_height = starting_jump_height * 1.5
 			color_sprite.modulate = Color("green")
 			
 		CharacterColors.Blue: # Passthrough blue + blue related objects
@@ -105,7 +98,7 @@ func update_color() -> void:
 			light_node.visible = false
 			red_emitting = false
 			self.collision_mask = 1 | 2
-			jump_power = -2000
+			jump_height = starting_jump_height
 			color_sprite.modulate = Color("blue")
 			
 		CharacterColors.Purple: # Passthrough with purple + purple related (intentionally confuse with blue)
@@ -114,7 +107,7 @@ func update_color() -> void:
 			light_node.visible = false
 			red_emitting = false
 			self.collision_mask = 1 | 3
-			jump_power = -2000
+			jump_height = starting_jump_height
 			color_sprite.modulate = Color("Purple")
 			
 		CharacterColors.White: # Light source for dark rooms
@@ -123,7 +116,7 @@ func update_color() -> void:
 			light_node.visible = true
 			red_emitting = false
 			self.collision_mask = 1 | 2 | 3
-			jump_power = -2000
+			jump_height = starting_jump_height
 			color_sprite.modulate = Color("white")
 			
 		CharacterColors.Black: # Hidden Block?
@@ -132,7 +125,7 @@ func update_color() -> void:
 			light_node.visible = false
 			red_emitting = false
 			self.collision_mask = 1 | 2 | 3
-			jump_power = -2000
+			jump_height = starting_jump_height
 			color_sprite.modulate = Color("black")
 			
 		_:
