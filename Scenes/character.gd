@@ -98,7 +98,7 @@ func update_color() -> void:
 			gravity = 20
 			light_node.visible = false
 			red_emitting = false
-			self.collision_mask = 1 | 2
+			self.collision_mask = 1 | 3
 			jump_ratio = 1.0
 			color_sprite.modulate = Color("blue")
 			
@@ -107,7 +107,7 @@ func update_color() -> void:
 			gravity = 20
 			light_node.visible = false
 			red_emitting = false
-			self.collision_mask = 1 | 3
+			self.collision_mask = 1 | 2
 			jump_ratio = 1.0
 			color_sprite.modulate = Color("Purple")
 			

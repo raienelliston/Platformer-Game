@@ -685,7 +685,7 @@ text = "Red Detector
 Area"
 
 [node name="ColorChangeDetector2" parent="." instance=ExtResource("3_rp36q")]
-position = Vector2(34, 405)
+position = Vector2(38, 457)
 
 [node name="Label" type="Label" parent="ColorChangeDetector2"]
 offset_left = -4.0
@@ -695,7 +695,7 @@ offset_bottom = 48.0
 text = "\"Redstone\""
 
 [node name="ColorChangeDetector3" parent="." instance=ExtResource("3_rp36q")]
-position = Vector2(116, 405)
+position = Vector2(115, 457)
 target_color = 1
 
 [node name="Label" type="Label" parent="ColorChangeDetector3"]
@@ -706,62 +706,72 @@ offset_bottom = 49.0
 text = "Bouncy"
 
 [node name="ColorChangeDetector4" parent="." instance=ExtResource("3_rp36q")]
-position = Vector2(194, 405)
+position = Vector2(198, 458)
 target_color = 2
 
 [node name="Label" type="Label" parent="ColorChangeDetector4"]
-offset_left = -6.0
-offset_top = 5.0
-offset_right = 79.0
-offset_bottom = 54.0
+offset_left = 1.0
+offset_top = -44.0
+offset_right = 86.0
+offset_bottom = 5.0
 text = "Invert
 Gravity"
 
 [node name="ColorChangeDetector5" parent="." instance=ExtResource("3_rp36q")]
-position = Vector2(276, 406)
+position = Vector2(277, 458)
 target_color = 3
 
 [node name="Label" type="Label" parent="ColorChangeDetector5"]
-offset_right = 40.0
-offset_bottom = 23.0
+offset_left = -12.0
+offset_top = -53.0
+offset_right = 73.0
+offset_bottom = -4.0
 text = "Extra Jump
 Height"
 
 [node name="ColorChangeDetector6" parent="." instance=ExtResource("3_rp36q")]
-position = Vector2(354, 406)
+position = Vector2(355, 459)
 target_color = 4
 
 [node name="Label" type="Label" parent="ColorChangeDetector6"]
-offset_right = 40.0
-offset_bottom = 23.0
+offset_left = -4.0
+offset_top = -29.0
+offset_right = 68.0
+offset_bottom = -6.0
 text = "See Right"
 
 [node name="ColorChangeDetector7" parent="." instance=ExtResource("3_rp36q")]
-position = Vector2(433, 405)
+position = Vector2(434, 461)
 target_color = 5
 
 [node name="Label" type="Label" parent="ColorChangeDetector7"]
-offset_right = 40.0
-offset_bottom = 23.0
+offset_left = -4.0
+offset_top = -28.0
+offset_right = 68.0
+offset_bottom = -5.0
 text = "See Right"
 
 [node name="ColorChangeDetector8" parent="." instance=ExtResource("3_rp36q")]
-position = Vector2(513, 406)
+position = Vector2(518, 459)
 target_color = 6
 
 [node name="Label" type="Label" parent="ColorChangeDetector8"]
-offset_right = 40.0
-offset_bottom = 23.0
+offset_left = 6.0
+offset_top = -51.0
+offset_right = 59.0
+offset_bottom = -2.0
 text = "Light
 Source"
 
 [node name="ColorChangeDetector9" parent="." instance=ExtResource("3_rp36q")]
-position = Vector2(597, 406)
+position = Vector2(604, 458)
 target_color = 7
 
 [node name="Label" type="Label" parent="ColorChangeDetector9"]
-offset_right = 40.0
-offset_bottom = 23.0
+offset_left = -12.0
+offset_top = -55.0
+offset_right = 81.0
+offset_bottom = -6.0
 text = "Hidden In
 Background"
 
