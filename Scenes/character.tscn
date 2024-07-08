@@ -14,16 +14,17 @@ script = ExtResource("1_7kjkw")
 position = Vector2(32, 32)
 shape = SubResource("RectangleShape2D_rkybw")
 
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(32, 32)
+energy = 3.0
+shadow_enabled = true
+texture = ExtResource("1_ea3s1")
+
 [node name="Sprite2D" type="Sprite2D" parent="."]
 
 [node name="TextureRect" type="TextureRect" parent="Sprite2D"]
 offset_right = 64.0
 offset_bottom = 64.0
-texture = ExtResource("1_ea3s1")
-
-[node name="PointLight2D" type="PointLight2D" parent="Sprite2D"]
-position = Vector2(32, 32)
-shadow_enabled = true
 texture = ExtResource("1_ea3s1")
 
 [node name="LightNode" type="Node2D" parent="."]
