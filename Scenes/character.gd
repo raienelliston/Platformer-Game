@@ -13,9 +13,9 @@ extends CharacterBody2D
 @onready var light_node = $PointLight2D
 @onready var hidden_node = $HiddenNode
 
-enum CharacterColors { Red, Orange, Yellow, Green, Blue, Purple, White, Black, NONE }
+enum CharacterColors { Red, Orange, Yellow, Green, Blue, Purple, White, Black }
 @export var starting_color: CharacterColors 
-var character_color: CharacterColors = CharacterColors.NONE
+@onready var character_color := starting_color
 var bouncy = false
 
 # Jump Variables
@@ -29,13 +29,14 @@ var red_emitting := false
 
 func _ready() -> void:
 	add_to_group("character")
-	set_color(starting_color)
-	
+	update_color()
 
 func _physics_process(delta):
 	if bouncy == false:
-		
-		velocity.y = jump_gravity if velocity.y < 0.0 else fall_gravity
+		if velocity.y < 0.0:
+			velocity.y += jump_gravity * delta
+		else:
+			velocity.y += fall_gravity * delta
 		
 		velocity.x = (Input.get_action_strength("right") - Input.get_action_strength("left")) * speed
 		
@@ -45,7 +46,6 @@ func _physics_process(delta):
 			velocity.y = jump_velocity
 		elif Input.is_action_just_pressed("up") and is_on_ceiling() and gravity < 0:
 			velocity.y = jump_velocity
-			
 		move_and_slide()
 	else: # in the case that yellow/bouncy is enabled
 		var collision = move_and_collide(velocity * delta)
