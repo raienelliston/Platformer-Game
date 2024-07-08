@@ -4,6 +4,7 @@ extends CharacterBody2D
 @export var speed = 400
 @export var gravity = 20
 @export var defualt_jump_power = -2000
+@export var bounce_power = 200
 
 @onready var color_sprite: Sprite2D = $Sprite2D
 @onready var texture_rect: TextureRect = $Sprite2D/TextureRect
@@ -26,20 +27,38 @@ func _ready() -> void:
 	
 
 func _physics_process(delta):
-	velocity.x = 0
-	
-	if Input.is_action_pressed("right"):
-		velocity.x += speed
-	if Input.is_action_pressed("left"):
-		velocity.x -= speed
-	
-	if not is_on_floor():
-		velocity.y += gravity
-	if Input.is_action_just_pressed("up") and is_on_floor():
-		velocity.y += jump_power
+	if bouncy == false:
+		velocity.x = 0
 		
-	move_and_slide()
-	move_and_collide(Vector2(0, gravity))
+		if Input.is_action_pressed("right"):
+			velocity.x += speed
+		if Input.is_action_pressed("left"):
+			velocity.x -= speed
+		
+		if not is_on_floor():
+			velocity.y += gravity
+		if Input.is_action_just_pressed("up") and is_on_floor() and gravity > 0:
+			velocity.y += jump_power
+		elif Input.is_action_just_pressed("up") and is_on_ceiling() and gravity < 0:
+			velocity.y -= jump_power
+			
+		move_and_slide()
+		move_and_collide(Vector2(0, gravity))
+	else:
+		if velocity.x < bounce_power:
+			velocity.x = bounce_power
+		velocity.y -= gravity
+		if is_on_floor():
+			velocity.y = bounce_power
+		if is_on_ceiling():
+			velocity.y = 0 - bounce_power
+		if is_on_wall():
+			velocity.x = 0 - velocity.x
+		
+		move_and_slide()
+		move_and_collide(Vector2(0, 0))
+
+	
 
 func update_color() -> void:
 	
@@ -63,7 +82,7 @@ func update_color() -> void:
 			color_sprite.modulate = Color("blue")
 			
 		CharacterColors.Yellow: # Bouncy. Gives character uncontrollable bouncy movment
-			bouncy = false
+			bouncy = true
 			gravity = -20
 			light_node.visible = false
 			red_emitting = false
