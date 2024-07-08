@@ -23,6 +23,7 @@ var bouncy = false
 @onready var jump_velocity : float = ((-2.0 * jump_height) / time_to_peak_jump)
 @onready var jump_gravity : float = ((2.0 * jump_height) / (time_to_peak_jump * time_to_peak_jump))
 @onready var fall_gravity : float = ((2.0 * jump_height) / (time_to_fall_jump * time_to_fall_jump))
+var jump_ratio := 1.0
 
 # Color Asssistance Variables
 var red_emitting := false
@@ -43,9 +44,9 @@ func _physics_process(delta):
 		if not is_on_floor():
 			velocity.y += gravity
 		if Input.is_action_just_pressed("up") and is_on_floor() and gravity > 0:
-			velocity.y = jump_velocity
+			velocity.y = jump_velocity * jump_ratio
 		elif Input.is_action_just_pressed("up") and is_on_ceiling() and gravity < 0:
-			velocity.y = jump_velocity
+			velocity.y = jump_velocity * jump_ratio
 		move_and_slide()
 	else: # in the case that yellow/bouncy is enabled
 		var collision = move_and_collide(velocity * delta)
@@ -62,7 +63,7 @@ func update_color() -> void:
 			light_node.visible = false
 			red_emitting = true
 			self.collision_mask = 1 | 2 | 3 
-			jump_height = starting_jump_height
+			jump_ratio = 1.0
 			color_sprite.modulate = Color("red")
 			
 		CharacterColors.Orange: # Passthrough blue + blue related objects
@@ -71,16 +72,16 @@ func update_color() -> void:
 			light_node.visible = false
 			red_emitting = false
 			self.collision_mask = 1 | 2 | 3
-			jump_height = starting_jump_height
+			jump_ratio = 1.0
 			color_sprite.modulate = Color("blue")
 			
 		CharacterColors.Yellow: # Bouncy. Gives character uncontrollable bouncy movment
-			bouncy = true
+			bouncy = false
 			gravity = -20
 			light_node.visible = false
 			red_emitting = false
 			self.collision_mask = 1 | 2 | 3
-			jump_height = starting_jump_height
+			jump_ratio = 1.0
 			color_sprite.modulate = Color("yellow")
 			
 		CharacterColors.Green: # Increased jump value
@@ -89,7 +90,7 @@ func update_color() -> void:
 			light_node.visible = false
 			red_emitting = false
 			self.collision_mask = 1 | 2 | 3
-			jump_height = starting_jump_height * 1.5
+			jump_ratio = 2.0
 			color_sprite.modulate = Color("green")
 			
 		CharacterColors.Blue: # Passthrough blue + blue related objects
@@ -98,7 +99,7 @@ func update_color() -> void:
 			light_node.visible = false
 			red_emitting = false
 			self.collision_mask = 1 | 2
-			jump_height = starting_jump_height
+			jump_ratio = 1.0
 			color_sprite.modulate = Color("blue")
 			
 		CharacterColors.Purple: # Passthrough with purple + purple related (intentionally confuse with blue)
@@ -107,7 +108,7 @@ func update_color() -> void:
 			light_node.visible = false
 			red_emitting = false
 			self.collision_mask = 1 | 3
-			jump_height = starting_jump_height
+			jump_ratio = 1.0
 			color_sprite.modulate = Color("Purple")
 			
 		CharacterColors.White: # Light source for dark rooms
@@ -116,7 +117,7 @@ func update_color() -> void:
 			light_node.visible = true
 			red_emitting = false
 			self.collision_mask = 1 | 2 | 3
-			jump_height = starting_jump_height
+			jump_ratio = 1.0
 			color_sprite.modulate = Color("white")
 			
 		CharacterColors.Black: # Hidden Block?
@@ -125,7 +126,7 @@ func update_color() -> void:
 			light_node.visible = false
 			red_emitting = false
 			self.collision_mask = 1 | 2 | 3
-			jump_height = starting_jump_height
+			jump_ratio = 1.0
 			color_sprite.modulate = Color("black")
 			
 		_:
